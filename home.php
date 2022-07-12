@@ -1,4 +1,7 @@
-<?php include('config.php'); ?>
+<?php include('config.php'); 
+require_once('repository/FluRepository.php');
+$nome = filter_input(INPUT_GET, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+?>
 <!doctype html>
 <html lang="pt_BR">
 
@@ -7,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
     <?php include('navbar.php'); ?>
 
-    <link rel="stylesheet" href="css/estilo.css">
     <div class="col-10 offset-1 mt-5">
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-3">
@@ -22,106 +25,20 @@
         </div>
     </div>
     <br><br>
-    <div class="card-group">
-  <div class="card">
-    <img src="imagens/fabio.png.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Fabio Nº12</h5>
-      <p class="card-text">Paredão Tricolor</p>
+    <?php foreach(fnLocalizaJogadorPorNome($nome) as $usuario): ?>
+      <div class="card mb-3"style="max-width: 530px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="<?= $usuario -> foto ?>" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
       <div class="card-body">
+      <h5 class="card-title">Nome: <?= $usuario -> nome?></h5>
+        <p class="card-text">Posição: <?= $usuario -> posicao?></p>
+        <p class="card-text">Idade: <?= $usuario -> idade?></p>
+            </div>
     </div>
-    </div>
-  </div>
-    <div class="card">
-    <img src="imagens/MANOEL.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Manoel Nº26</h5>
-      <p class="card-text">Zagueiro Artilheiro</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-   <div class="card">
-    <img src="imagens/Nino.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Nino Nº33</h5>
-      <p class="card-text">Gênio da Zaga</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-   <div class="card">
-    <img src="imagens/Samuel_Xavier;png.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Samuel Xavier Nº2</h5>
-      <p class="card-text">Marcelo Sem grife</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-    <div class="card">
-    <img src="imagens/CAIO_PAULISTA.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Caio Paulista Nº70</h5>
-      <p class="card-text">Mbappe de Laranjeiras</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-   <div class="card">
-    <img src="imagens/ANDRÉ.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">André Nº7</h5>
-      <p class="card-text">Mini Pitbull</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-    <div class="card">
-    <img src="imagens/Nonato.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Nonato Nº8</h5>
-      <p class="card-text">Pequeno Mago</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-   <div class="card">
-    <img src="imagens/Ganso.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Ganso Nº10</h5>
-      <p class="card-text">Estudou para jogar Bola.</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <img src="imagens/Jhon_Arias.png.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Jhon Arias Nº21</h5>
-      <p class="card-text">Sorriso Colgate</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <img src="imagens/MATHEUS_MARTINS.png.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Matheus Martins Nº37</h5>
-      <p class="card-text">Prata da Casa</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <img src="imagens/German_Cano.png.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">German Cano Nº14</h5>
-      <p class="card-text">Fede a GoL</p>
-      <div class="card-body">
-      </div>
-    </div>
-  </div>
+                   <?php endforeach; ?>
     <?php include("rodape.php"); ?>
 </body>
 
